@@ -1,6 +1,14 @@
 # EHAX 2026: pwn/lulocator
 ## Context
 
+This is a custom heap memory allocation program with a buffer overflow vulnerability and `libc` address leak.
+
+```
+Who needs that buggy malloc? Made my own completely safe lulocator.
+
+nc chall.ehax.in 40137
+```
+
 **Artifacts**
 
 This challenge provides four files:
