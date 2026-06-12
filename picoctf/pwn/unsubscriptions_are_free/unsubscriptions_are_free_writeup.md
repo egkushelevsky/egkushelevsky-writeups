@@ -3,7 +3,7 @@
 *“Check out my new video-game and spaghetti-eating streaming channel on Twixer!”*
 
 ## Challenge Artifacts
-- [`vuln.c`](./vuln.c), the source code for the “streaming” program.
+- [`vuln.c`](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/picoctf/pwn/unsubscriptions_are_free/handout/vuln.c), the source code for the “streaming” program.
 - `vuln`, a version of `vuln.c` compiled as a 32-bit ELF executable for Linux on Intel 80386 with no-PIE.
 
 ## Context
@@ -288,7 +288,7 @@ Breakpoint 3, 0x0000000000401594 in leaveMessage () at vuln.c:79
 
 This means we can use the `leaveMessage()` function to overwrite the freed space with a pointer to the `hahaexploitgobrrr()` function and it will still get called by `doProcess()`.
 
-I wrote a script, [`unsubscriptions_are_free_exploit.py`](./unsubscriptions_are_free_exploit.py), to do the following steps:
+I wrote a script, [`unsubscriptions_are_free_exploit.py`](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/picoctf/pwn/unsubscriptions_are_free/unsubscriptions_are_free_exploit.py), to do the following steps:
 - Call `s()` with option S to get the address of `hahaexploitgobrrr()`.
 - Call `i()` with option I to free the `user` struct.
 - Call `leaveMessage()` with option L to reallocate and overwrite the function pointer.

@@ -261,7 +261,7 @@ With these factors, we can solve the challenge using a script with the following
 4. Build the ROP chain with the known runtime addresses of the necessary instructions and functions.
 5. Send a command from the parent to execute the ROP chain and get the flag.
 
-The attached script, [`exploit.py`](./exploit.py), gets the flag:
+The attached script, [`factory-monitor_exploit.py`](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/umassctf2026/pwn/factory-monitor/factory-monitor_exploit.py), gets the flag:
 ```
 UMASS{AsLR_L3Ak}
 ```

@@ -357,7 +357,7 @@ We can do this with the following steps:
 ```
 8. Set the running program to C and run `system(“bin/sh“)`.
 
-To execute these steps, I wrote a Python script, [`lulocator_exploit.py`](./lulocator_exploit.py), which connects to the challenge and handles the I/O. From this, I was able to obtain the flag.
+To execute these steps, I wrote a Python script, [`lulocator_exploit.py`](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/ehax2026/pwn/lulocator/lulocator_exploit.py), which connects to the challenge and handles the I/O. From this, I was able to obtain the flag.
 
 ```
 $ python3 exploit4.py

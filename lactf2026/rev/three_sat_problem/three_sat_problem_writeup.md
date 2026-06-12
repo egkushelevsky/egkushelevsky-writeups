@@ -91,7 +91,7 @@ Finally, if the input is accepted, it is used to decode the flag from memory.
 ```
 
 ## Solution
-I tried multiple approaches to extracting the correct assignment from the 3SAT function, first trying to lift the expression directly from both the disassembly and decompilation but facing issues with getting Angr's solver to find a satisfiable assignment. What ultimately succeeded was writing a Python [script](./working_symbolic_execution.py) to symbolically execute the function from the disassembly using Capstone. It parses instructions accessing the input buffer and constructing the clause, then uses Z3's solver to assemble the 3CNF expression. With this script, I was finally able to get the binary string and pass it into the challenge.
+I tried multiple approaches to extracting the correct assignment from the 3SAT function, first trying to lift the expression directly from both the disassembly and decompilation but facing issues with getting Angr's solver to find a satisfiable assignment. What ultimately succeeded was writing a Python [script](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/lactf2026/rev/three_sat_problem/working_symbolic_execution.py) to symbolically execute the function from the disassembly using Capstone. It parses instructions accessing the input buffer and constructing the clause, then uses Z3's solver to assemble the 3CNF expression. With this script, I was finally able to get the binary string and pass it into the challenge.
 ```
 $ python3 working_symbolic_execution.py
 got binary
@@ -102,3 +102,6 @@ Have you solved the Three-Sat Problem?
 Incredible! Let me get the flag for you...
 lactf{is_the_three_body_problem_np_hard}
 ```
+
+## Credits
+Written by [Elizabeth Kushelevsky](https://github.com/egkushelevsky). Challenge by `aplet123` for LACTF 2026.

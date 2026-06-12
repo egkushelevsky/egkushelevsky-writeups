@@ -236,7 +236,7 @@ We can use the pseudorandom number generation as an attack primitive to recreate
 
 From there, we just have to allocate two blocks, free the first, and reallocate its space with an overflowed phone number to change the second name to `“admin”`. Since we know the size and allocation of both blocks, we can overwrite those as well. The phone number is a fixed 28 bytes from the end of its structure, so we fill those bytes with garbage, replace the canary, and write `“admin”`.
 
-I accomplished these steps in [`the_office_exploit.py`](./the_office_exploit.py). I used the `ctypes` library to call the stdlib random functions directly in my Python script.
+I accomplished these steps in [`the_office_exploit.py`](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/picoctf/pwn/the_office/the_office_exploit.py). I used the `ctypes` library to call the stdlib random functions directly in my Python script.
 
 ```
 (venv) elizabeth@linux-vm:~/ctf$ python3 the_office_exploit.py
