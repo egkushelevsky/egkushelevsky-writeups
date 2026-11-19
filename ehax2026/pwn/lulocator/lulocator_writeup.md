@@ -164,6 +164,7 @@ With these two functions, we get an idea of how this program allocates blocks of
 ```
 
 **Execution**
+
 When the user wants to delete an allocation by index, a freeing function sets the allocated metadata bit to 0 and calls a function to insert the allocation into the explicit free list (shown farther down).
 
 To execute a function based on the selected index of the array of allocation pointers, the program calls the following function.
@@ -200,7 +201,7 @@ The second key vulnerability is the leak of a libc address to the user (CWE-200)
 
 ## Exploitation
 
-The goal is to overwrite the `function` pointer of an allocation to the runtime address of `system` using an offset from the known `stdout` runtime address. Then we can modify the string payload of that allocation to `“/bin/sh“`, run the function, and `cat` the flag in the created shell.
+The goal is to overwrite the `function` pointer of an allocation to the runtime address of `system` using an offset from the known `stdout` runtime address. Then we can modify the string payload of that allocation to `/bin/sh`, run the function, and `cat` the flag in the created shell.
 
 **First, some dead ends**
 
@@ -331,7 +332,7 @@ We can do this with the following steps:
              ^ C
 ```
 6. Write to allocation D, overwriting the function pointer of allocation C to the runtime address of `system`.
-7. Write “/bin/sh“ to C's payload.
+7. Write `/bin/sh` to C's payload.
 
 ```
    0x0      0x8      0x10     0x18     0x20     0x28     0x30                             0x40
@@ -350,12 +351,12 @@ We can do this with the following steps:
 
    0x80     0x88     0x90     0x98     0xa0     0xa8     0xb0                             0xc0
     +--------+--------+--------+--------+--------+--------+--------------------------------+
-    |AAAAAAAA|AAAAAAAA|AAAAAAAA| system | stdout |  size  | “/bin/sh\00“                   |
+    |AAAAAAAA|AAAAAAAA|AAAAAAAA| system | stdout |  size  | “/bin/sh\00”                   |
     |        |        |        |        |        |  = 16  |                                |
     +--------+--------+--------+--------+--------+--------+--------------------------------+
              ^ C
 ```
-8. Set the running program to C and run `system(“bin/sh“)`.
+8. Set the running program to C and run `system(“bin/sh”)`.
 
 To execute these steps, I wrote a Python script, [`lulocator_exploit.py`](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/ehax2026/pwn/lulocator/lulocator_exploit.py), which connects to the challenge and handles the I/O. From this, I was able to obtain the flag.
 
