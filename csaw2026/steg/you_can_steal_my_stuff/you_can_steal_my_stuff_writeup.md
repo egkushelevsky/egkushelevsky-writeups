@@ -47,14 +47,14 @@ Next, I decided to actually listen to the given audio, the second part of which 
 
 <figure style="margin: 1.5em 0; padding: 12px; border: 1px solid hsl(344, 71%, 96%); border-radius: 10px;">
   <figcaption style="font-weight: bold; margin-bottom: 8px;">youcanstealmystuff.wav</figcaption>
-  <audio controls src="./youcanstealmystuff.wav" style="width: 100%;"></audio>
+  <audio controls src="https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/youcanstealmystuff.wav" style="width: 100%;"></audio>
 </figure>
 
 Well, that’s helpful! I also noted that the first half of the audio sounded backward, so I wanted to reverse it. I used an [online tool](https://audioalter.com/reverse), but there are also ways to do this from the command line. This gave me another portion of the flag: `csaw{but_y0u_`.
 
 <figure style="margin: 1.5em 0; padding: 12px; border: 1px solid hsl(344, 71%, 96%); border-radius: 10px;">
   <figcaption style="font-weight: bold; margin-bottom: 8px;">rev-youcanstealmystuff.wav</figcaption>
-  <audio controls src="./rev-youcanstealmystuff.wav" style="width: 100%;"></audio>
+  <audio controls src="https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/rev-youcanstealmystuff.wav" style="width: 100%;"></audio>
 </figure>
 
 ## Remaining Analysis
@@ -72,7 +72,7 @@ With this finding, I isolated the right track for this clip, pitched it down, an
 
 <figure style="margin: 1.5em 0; padding: 12px; border: 1px solid hsl(344, 71%, 96%); border-radius: 10px;">
   <figcaption style="font-weight: bold; margin-bottom: 8px;">hidden_57.wav</figcaption>
-  <audio controls src="./hidden_57.wav" style="width: 100%;"></audio>
+  <audio controls src="https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/hidden_57.wav" style="width: 100%;"></audio>
 </figure>
 
 I worked out that this audio was saying “the key is almost \<something\>” and gave my best guess that “there” was the second word I couldn’t understand. Trying a few times to make sense of the encoded portions, I found that decoding a Vigenère cipher and Base64 in sequence turned `bIxtsWGHgeV9` into `my_h3@rt}`. Vigenère makes sense as a cipher choice since it skips nonalphabetic characters, leaving the Base64 special characters as they were in the original encoded string
