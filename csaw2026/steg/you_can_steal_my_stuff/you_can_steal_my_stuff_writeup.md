@@ -45,17 +45,11 @@ Right away we see a decoy flag, which doesn’t help much but tells us we’re t
 
 Next, I decided to actually listen to the given audio, the second part of which clearly tells us, “last part: `bIxtsWGHgeV9`.” This too looks like Base64 but doesn’t decode to anything meaningful (`lm±aå}`).
 
-<figure style="margin: 1.5em 0; padding: 12px; border: 1px solid hsl(344, 71%, 96%); border-radius: 10px;">
-  <figcaption style="font-weight: bold; margin-bottom: 8px;">youcanstealmystuff.wav</figcaption>
-  <audio controls src="https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/youcanstealmystuff.wav" style="width: 100%;"></audio>
-</figure>
+[youcanstealmystuff.wav](./youcanstealmystuff.wav)
 
 Well, that’s helpful! I also noted that the first half of the audio sounded backward, so I wanted to reverse it. I used an [online tool](https://audioalter.com/reverse), but there are also ways to do this from the command line. This gave me another portion of the flag: `csaw{but_y0u_`.
 
-<figure style="margin: 1.5em 0; padding: 12px; border: 1px solid hsl(344, 71%, 96%); border-radius: 10px;">
-  <figcaption style="font-weight: bold; margin-bottom: 8px;">rev-youcanstealmystuff.wav</figcaption>
-  <audio controls src="https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/rev-youcanstealmystuff.wav" style="width: 100%;"></audio>
-</figure>
+[rev-youcanstealmystuff.wav](./rev-youcanstealmystuff.wav)
 
 ## Remaining Analysis
 I took a few important hints from the simple-to-recover parts of this challenge. First, the decoy flag in the metadata tells us the real flag will likely be of this same format, `csaw{flag}`, but what we are given as the end of that flag is not in that format. However, I saw that the Base64 decoding of this string ends in the closing bracket we’d expect. This led me to notice that the other string from the metadata had a character which decoded to an underscore, the character which separates words in the known portion of the flag.
@@ -66,18 +60,15 @@ Second, while listening to the audio, I heard a (rather unpleasant) high-pitched
 
 And just for the right audio channel:
 
-![right spectrogram](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/youcanstealmystuff_right_spectrogram.png)
+![right spectrogram](./right_spectrogram.png)
 
 With this finding, I isolated the right track for this clip, pitched it down, and slowed it using the `pedalboard` Python library. This was mostly trial and error until I got a somewhat intelligible audio.
 
-<figure style="margin: 1.5em 0; padding: 12px; border: 1px solid hsl(344, 71%, 96%); border-radius: 10px;">
-  <figcaption style="font-weight: bold; margin-bottom: 8px;">hidden_57.wav</figcaption>
-  <audio controls src="https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/hidden_57.wav" style="width: 100%;"></audio>
-</figure>
+[hidden_57.wav](./hidden_57.wav)
 
-I worked out that this audio was saying “the key is almost \<something\>” and gave my best guess that “there” was the second word I couldn’t understand. Trying a few times to make sense of the encoded portions, I found that decoding a Vigenère cipher and Base64 in sequence turned `bIxtsWGHgeV9` into `my_h3@rt}`. Vigenère makes sense as a cipher choice since it skips nonalphabetic characters, leaving the Base64 special characters as they were in the original encoded string
+I worked out that this audio was saying “the key is almost \<something\>” and gave my best guess that “there” was the second word I couldn’t understand. Trying a few times to make sense of the encoded portions, I found that decoding a Vigenère cipher and Base64 in sequence turned `bIxtsWGHgeV9` into `my_h3@rt}`. Vigenère makes sense as a cipher choice since it skips nonalphabetic characters, leaving the Base64 special characters as they were in the original encoded string.
 
-I used this working decoding to also recover the middle portion of the flag from `Y0MgrX9swKRRfF8=` into `into c@nt_st3@l_`, which. can be reproduced by my [solve script](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/solve.py). With these pieces we recover the whole flag, `csaw{but_y0u_c@nt_st3@l_my_h3@rt}`—a fitting flag for a challenge of the “country” genre.
+I used this working decoding to also recover the middle portion of the flag from `Y0MgrX9swKRRfF8=` into `c@nt_st3@l_`, which can be reproduced by my [solve script](https://github.com/egkushelevsky/egkushelevsky-writeups/blob/main/csaw2026/steg/you_can_steal_my_stuff/solve.py). With these pieces we recover the whole flag, `csaw{but_y0u_c@nt_st3@l_my_h3@rt}`—a fitting flag for a challenge of the “country” genre.
 
 ## Credits
 Written by [Elizabeth Kushelevsky](https://egkushelevsky.xyz). Challenge by `Arcana` for CSAW CTF Finals 2026.
