@@ -60,7 +60,7 @@ Second, while listening to the audio, I heard a (rather unpleasant) high-pitched
 
 And just for the right audio channel:
 
-![right spectrogram](./right_spectrogram.png)
+![right spectrogram](./youcanstealmystull_right_spectrogram.png)
 
 With this finding, I isolated the right track for this clip, pitched it down, and slowed it using the `pedalboard` Python library. This was mostly trial and error until I got a somewhat intelligible audio.
 
